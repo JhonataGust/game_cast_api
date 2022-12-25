@@ -8,6 +8,9 @@ class User < ApplicationRecord
   validates :password, presence: true, on: create
   validates :username, presence: true, on: create
 
+  has_one_attached :avatar
+
+
   def self.preferences_type
     [
       'Gameplays',

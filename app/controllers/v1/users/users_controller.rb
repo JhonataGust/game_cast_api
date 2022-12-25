@@ -12,6 +12,8 @@ module V1
       end
 
       def update
+        @user.avatar.purge if @user.avatar.attached?
+
         @user.update(user_params)
 
         return render json: { error: 'Something Went Wrong' }, status: 422 unless @user.valid?
@@ -31,7 +33,7 @@ module V1
       end
 
       def user_params
-        params.require(:user).permit(:name, :username, :email, :password, preferences: [])
+        params.require(:user).permit(:name, :username, :email, :password, :avatar,preferences: [])
       end
     end
   end
