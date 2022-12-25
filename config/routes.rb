@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get '/validate', to: 'users#validate'
       get '/', to: 'users#profile'
       put '/', to: 'users#update'
+
+      get '/video_users/:uid', to: 'user_videos#index'
     end
   end
 end
