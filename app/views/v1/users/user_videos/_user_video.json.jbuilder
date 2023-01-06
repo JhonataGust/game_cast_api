@@ -8,6 +8,15 @@ json.link_video user_video.file_video.attached? ? polymorphic_url(user_video.fil
 json.image_src user_video.thumb.attached? ? polymorphic_url(user_video.thumb) : nil
 json.type_video user_video.uid == @current_url
 json.muted user_video.uid == @current_url
+json.comments VideoComment.where(user_video_id: user_video.id) do |comment|
+    json.text_comment comment.text_comment
+    json.user do
+        json.name comment.user.name
+        json.username "@#{comment.user.username}"
+        json.avatar comment.user.avatar.attached? ? polymorphic_url(comment.user.avatar) : nil 
+    end
+end
+json.total_comments VideoComment.where(user_video_id: user_video.id).count
 json.user do
     json.name user_video.user.name
     json.username "@#{user_video.user.username}"

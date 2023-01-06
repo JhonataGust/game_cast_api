@@ -9,9 +9,7 @@ module V1
       end
 
       def my_video
-        @user_videos = UserVideo.where(user_id: @user.id)
-
-        render json: { user_videos: @user_videos }
+        @user_current_videos = UserVideo.where(user_id: @user.id)
       end
 
       def update

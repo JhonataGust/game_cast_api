@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_195326) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_31_184718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,8 +76,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_195326) do
     t.string "uid"
   end
 
+  create_table "video_comments", force: :cascade do |t|
+    t.text "text_comment"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_video_id"
+    t.index ["user_id"], name: "index_video_comments_on_user_id"
+    t.index ["user_video_id"], name: "index_video_comments_on_user_video_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "user_video_reactions", "users"
   add_foreign_key "user_videos", "users"
+  add_foreign_key "video_comments", "users"
 end
